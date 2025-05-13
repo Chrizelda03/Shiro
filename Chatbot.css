@@ -1,0 +1,174 @@
+/* Import Poppins font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+.chatbot-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #253f21, #82ca78);
+  color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.chatbot-container {
+  font-family: 'Poppins', sans-serif;
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 360px;    /* Decreased from 420px */
+  height: 430px;   /* Decreased from 650px */
+  background: #ffffff;
+  color: #333;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.chatbot-header {
+  font-family: 'Poppins';
+  font-weight: 900; /* Changed from 600 to 700 for bolder text */
+  background: #253f21;
+  color: white;
+  padding: 16px 20px;
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Add new style for the "Assistance" text */
+.chatbot-header .assistance-text {
+  color: #fd8443; /* Orange color */
+  font-weight: 50px;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+  position: relative; /* Added for precise positioning */
+  top: 2px; /* Fine-tune vertical position */
+}
+
+.close-button:hover {
+  background-color: #47604311;
+}
+
+.chatbot-messages {
+  flex: 1;
+  padding: 15px 12px; /* Reduced padding */
+  overflow-y: auto;
+  background: linear-gradient(135deg, #30552a, #82ca78);
+  max-height: calc(100% - 100px); /* Adjusted calculation */
+  margin-bottom: 50px; /* Reduced margin */
+}
+
+/* Chat message wrapper with name label */
+.chat-bubble-wrapper {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-bubble-wrapper.user {
+  align-items: flex-end;
+}
+
+.chat-bubble-wrapper.bot {
+  align-items: flex-start;
+}
+
+.sender-name {
+  font-size: 12px;
+  color: #bbb;
+  margin-bottom: 2px;
+  text-transform: lowercase;
+  padding-left: 10px;
+}
+
+/* Chat bubbles */
+.chat-bubble {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  padding: 12px 16px;
+  border-radius: 20px;
+  max-width: 75%;
+  line-height: 1.5;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+.chat-bubble.user {
+  background: #ffffff;
+  color: #000;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-bubble.bot {
+  background: #ffffff;
+  color: #000000;
+  border-bottom-left-radius: 4px;
+}
+
+.chatbot-input {
+  display: flex;
+  padding: 10px;
+  background-color: #e5ffe1;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-top: 1px solid #aaa;
+}
+
+.chatbot-input input {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  flex: 1;
+  border: none;
+  background: #ffffff;
+  color: #000000;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  outline: none;
+}
+
+.chatbot-input button {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  background: #3e6939;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  margin-left: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.chatbot-input button:hover {
+  background: #253f21;
+}
