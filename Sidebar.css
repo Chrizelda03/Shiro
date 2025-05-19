@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -240px; /* Adjusted to match width */
+  height: 100%;
+  width: 240px; /* Increased from 200px */
+  background-color: #253f21 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  color: #fff;
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+/* Adjust sidebar open position */
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar .close-btn {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.sidebar-toggle {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  background-color: #253f21;
+  color: #f23a3a !important;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  font-size: 1.25rem;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.layout-container {
+  display: flex;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 0;
+  transition: margin-left 0.3s ease;
+  padding: 2rem;
+}
+
+/* Adjust main content margin when sidebar is open */
+.sidebar-open .main-content {
+  margin-left: 240px; /* Adjusted to match sidebar width */
+}
+
+/* Keep other styles like .user-info, nav, buttons as-is */
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.75rem; /* Changed from -1rem to create proper spacing */
+  padding-bottom: 0.75rem; /* Add padding for visual separation */
+  padding-left: 25px; /* Add left padding to shift icon right */
+  width: 100%;
+}
+
+/* Enlarged profile icon */
+.profile-icon {
+  font-size: 90px; /* Increased from 80px */
+  color: #ffffff;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  margin-left: 25px !important; /* Move icon to the right */
+  
+}
+
+/* Add specific styling for the profile name if not already present */
+.profile-name {
+  margin: 0 0 0.25rem; /* Reduced bottom margin */
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400 !important;
+  font-size: 1rem;
+  padding-left: 30px; /* Add left padding to shift name right */
+}
+
+/* Navigation menu styling with Poppins semi-bold */
+.sidebar nav {
+  width: 100%;
+  margin-top: -1.5rem; /* Reduced from 1rem for tighter spacing */
+  padding-left: 5px; /* Add left padding to entire nav */
+}
+
+.sidebar nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+.sidebar nav ul li {
+  margin-bottom: 0.75rem; 
+  width: 100%;
+}
+
+.sidebar nav ul li:first-child {
+  margin-top: 0; 
+}
+
+/* Better alignment for navigation links and icons */
+.sidebar nav ul li a {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600; /* Semi-bold */
+  display: flex;
+  align-items: center; /* Vertical alignment */
+  padding: 0.50rem 1rem 0.50rem 1.5rem; /* Increase left padding */
+  font-size: 1.1rem;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  width: 100%;
+  position: relative; /* For positioning the active indicator */
+  line-height: 1; /* Important for text alignment with icons */
+}
+
+/* Perfect icon alignment with text */
+.sidebar nav ul li a svg,
+.sidebar nav ul li a i {
+  margin-right: 14px;
+  font-size: 1.35rem;
+  min-width: 24px; /* Fixed width for alignment */
+  display: flex; /* Important for centering */
+  align-items: center;
+  justify-content: center;
+  height: 24px; /* Fixed height to match with text */
+  position: relative;
+  top: -1px; /* Fine-tune vertical alignment */
+}
+
+.sidebar nav ul li a:hover {
+  background-color: #ffffff; /* Improved visibility */
+  border-radius: 10px;
+  color:#253f21;
+  width:260px;
+}
+
+.sidebar nav ul li a.active {
+  background-color: #ff030326; /* Improved visibility */
+  font-weight: 700;
+  border-radius: 50px;
+}
+
+/* Fix the active indicator position */
+.sidebar nav ul li a.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 15%; /* Center vertically */
+  height: 70%;
+  width: 4px;
+  background-color: #ffffff;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Ensure text doesn't wrap */
+.sidebar nav ul li a span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Section headers in sidebar */
+.nav-section-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 1.5rem 0 0.5rem 1rem;
+}
+
+/* Optional: Style for logout or settings at bottom */
+.sidebar-footer {
+  margin-top: auto;
+  width: 100%;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Enlarged user info text */
+.user-info h3 {
+  font-size: 1rem; /* Slightly larger */
+  margin-bottom: 0.5rem; /* Reduced from 3rem to create tighter spacing */
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  margin-left: 30px !important; /* Move name to the right */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add ellipsis if name is too long */
+  max-width: 190px; /* Maximum width within the sidebar */
+}
+
+.user-info p {
+  font-size: 1rem; /* Larger student number */
+  margin-left: 30px; /* Move student number to the right */
+  white-space: nowrap; /* Prevent student number from wrapping */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add ellipsis if student number is too long */
+  max-width: 190px; /* Maximum width within the sidebar */
+  margin-bottom: 1rem; /* Add bottom margin to create some space */
+}
+
+/* Adjust user info positioning */
+.user-info {
+  width: 100%;
+  text-align: center;
+  padding-left: 15px; /* Shift text right */
+}
+
+/* Add a subtle separator between profile info and navigation */
+.user-info:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.292);
+  margin: 0.85rem auto 0.5rem;
+  padding-right: 45px;
+}
+
+/* Enlarged logout button */
+.logout-btn {
+  font-size: 1.2rem;
+  padding: 0.85rem 1.25rem;
+  margin-top: 1.6rem;
+  margin-left: 40px; /* Move logout button to the right */
+}
+
+.logout-btn svg {
+  font-size: 1.25rem;
+  margin-right: 10px !important;
+}
