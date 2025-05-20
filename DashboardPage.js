@@ -58,9 +58,18 @@ const DashboardPage = () => {
   if (isLoading) return <div className="loading">Loading Dashboard...</div>;
   if (!user) return <div className="error-message">Unable to load user data.</div>;
 
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
   return (
     <div className={`layout-container ${isSidebarOpen ? 'sidebar-open' : ''}`}>
       <Sidebar user={user} isOpen={isSidebarOpen} />
+      <div 
+        className="sidebar-overlay" 
+        onClick={closeSidebar}
+        aria-label="Close sidebar"
+      ></div>
       <div className="main-content">
         <div className="dashboard-header">
           <div className="dashboard-left">
