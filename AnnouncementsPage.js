@@ -105,8 +105,7 @@ const AnnouncementsPage = () => {
           <span className="current-date">{formattedDate}</span>
         </div>
 
-        <div className="announcements-header">
-          <h1>SPECS Announcements</h1>
+        <div className="announcements-filters-container">
           <div className="announcements-filters">
             <button
               className={`filter-btn ${filter === 'all' ? 'active' : ''}`}
