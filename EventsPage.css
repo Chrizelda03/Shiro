@@ -1,0 +1,226 @@
+.events-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Improved header spacing */
+.events-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px; /* Increased from 30px for better spacing */
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.events-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+  margin-bottom: -4rem; /* Add space below the header text */
+}
+
+/* Modified filter button container - move left and upwards */
+.events-filters-container {
+  display: flex;
+  justify-content: flex-start; /* Changed from flex-end to align left */
+  width: 100%;
+  margin-top: -2rem; /* Increased negative margin to move up more */
+  margin-bottom: -2rem; /* Reduced bottom margin to decrease gap below */
+}
+
+/* Adjust container for larger buttons */
+.events-filters {
+  display: flex;
+  gap: 15px; /* Increased from 12px for larger buttons */
+  flex-wrap: wrap;
+  margin-left: 0; /* Ensure no left margin */
+  margin-bottom: 1.5rem; /* Add space below the filters */
+}
+
+/* Enlarged filter buttons */
+.filter-btn {
+  background-color: #f1f1f1;
+  border: none;
+  border-radius: 25px; 
+  padding: 10px 24px; 
+  font-size: 17px !important; 
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif; 
+  color: #444; 
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.3px; /* Add slight letter spacing */
+  min-width: 120px; /* Ensure minimum width for consistency */
+  text-align: center; /* Center text for better appearance */
+}
+
+.filter-btn:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-1px); /* Subtle lift effect on hover */
+}
+
+.filter-btn.active {
+  background-color: #3d6736;
+  color: white;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* Slightly larger shadow */
+}
+/* Adjusted event grid to reduce gap */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  justify-items: center;
+  margin-top: 0.25rem; /* Further reduced space between filters and grid */
+}
+
+/* Loading state */
+.events-page.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px;
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 4px solid #253f21;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* No events message */
+.no-events-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px;
+  color: #777;
+}
+
+.no-events-message i {
+  font-size: 48px;
+  margin-bottom: 15px;
+  color: #ccc;
+}
+
+.no-events-message p {
+  font-size: 18px;
+}
+.no-upcoming-events,
+.no-events-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px;
+  color: #777;
+  background-color: transparent; /* Remove any background */
+  box-shadow: none; /* Remove any shadow */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.no-upcoming-events i,
+.no-events-message i {
+  font-size: 48px;
+  margin-bottom: 15px;
+  color: #ccc;
+}
+
+.no-upcoming-events p,
+.no-events-message p {
+  font-size: 18px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Reset section title margins to minimize gaps */
+.section-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2d5641;
+  margin: 0 0 1rem 0; /* Reduced bottom margin */
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Remove section margins to tighten vertical spacing */
+.events-section {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+/* Add specific targeting for the community events section */
+.events-section + .events-section {
+  margin-top: -3rem; /* Increased negative margin to pull section up */
+}
+/* Remove the bottom border from first section title if needed */
+.events-section:first-child .section-title {
+  border-bottom: none;
+  margin-bottom: 0.25rem; /* Minimal margin */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .events-header {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: -2.5rem; /* Slightly reduced on mobile */
+  }
+  
+  .events-filters-container {
+    margin-top: -0.75rem; /* Slightly less aggressive on mobile */
+    margin-bottom: 0.25rem; /* Even less space on mobile */
+  }
+
+  .events-filters {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 10px; /* Reduced padding */
+    margin-bottom: 0; /* Reset negative margin */
+  }
+  
+  .events-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    margin-top: 0; /* No gap on mobile */
+  }
+
+  .section-title {
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .events-section {
+    margin-bottom: 1rem; /* Even less space on mobile */
+  }
+  .events-section + .events-section {
+    margin-top: -2rem; /* Less aggressive but still moved up on mobile */
+  }
+
+  .filter-btn {
+    padding: 9px 20px; /* Slightly smaller on mobile but still larger than original */
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+  .events-section + .events-section {
+    margin-top: -1.5rem; /* Even less on very small screens */
+  }
+}
