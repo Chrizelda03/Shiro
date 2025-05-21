@@ -1,19 +1,16 @@
-/* Add Poppins font import at the top of the file */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-
 .announcements-page {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 50px;
+  padding: 20px;
 }
 
 .announcements-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;  /* Decreased from 30px to 10px */
+  margin-bottom: 15px; /* Reduced from 30px to pull buttons up */
   flex-wrap: wrap;
-  gap: -20px;  /* Decreased from 20px to 5px */
+  gap: 20px;
 }
 
 .announcements-header h1 {
@@ -21,12 +18,20 @@
   font-weight: 700;
   color: #333;
   margin: 0;
-  margin-bottom: 0;  /* Removed bottom margin */
+}
+
+/* New container for filters without the heading */
+.announcements-filters-container {
+  display: flex;
+  margin-bottom: -20px;
+  margin-top: -26px; /* Added negative margin to pull upward */
 }
 
 .announcements-filters {
   display: flex;
-  gap: 10px;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: -5px; /* Added negative margin to pull upward */
 }
 
 .filter-btn {
@@ -39,25 +44,22 @@
   color: #555;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-family: 'Poppins', sans-serif;  /* Added Poppins font */
 }
 
 .filter-btn:hover {
-  background-color: #253f21;
-  color: white;
+  background-color: #e0e0e0;
 }
 
 .filter-btn.active {
-  background-color: #253f21;
+  background-color: #2d5641;
   color: white;
 }
 
 .announcements-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 25px;
-  justify-items: center;
-  margin-top: -30px;  /* Decreased from 30px to 10px */
+  gap: -20px; /* Reduce this value to bring cards closer together */
+
 }
 
 /* Loading state */
@@ -102,11 +104,17 @@
   font-size: 18px;
 }
 
+/* Add space after the filter buttons */
+.announcements-section {
+  margin-top: 15px; /* Add space between filter buttons and content */
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .announcements-header {
     flex-direction: column;
     align-items: flex-start;
+    margin-bottom: 10px; /* Even less space on mobile */
   }
   
   .announcements-filters {
@@ -117,6 +125,10 @@
   
   .announcements-grid {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  
+  .announcements-filters-container {
+    margin-top: -5px; /* Less negative margin on mobile */
   }
 }
 
