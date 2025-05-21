@@ -1,139 +1,166 @@
-.announcements-page {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 20px;
-}
+import React, { useEffect, useState } from 'react';
+import Sidebar from '../components/Sidebar';
+import { getProfile } from '../services/userService';
+import { getAnnouncements } from '../services/announcementService';
+import AnnouncementCard from '../components/AnnouncementCard';
+import AnnouncementModal from '../components/AnnouncementModal';
+import { FaBars } from 'react-icons/fa';
+import '../styles/AnnouncementsPage.css';
 
-.announcements-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px; /* Reduced from 30px to pull buttons up */
-  flex-wrap: wrap;
-  gap: 20px;
-}
+const AnnouncementsPage = () => {
+  const [user, setUser] = useState(null);
+  const [announcements, setAnnouncements] = useState([]);
+  const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAnnouncementsLoading, setIsAnnouncementsLoading] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [filter, setFilter] = useState('all');
+  const token = localStorage.getItem('accessToken');
 
-.announcements-header h1 {
-  font-size: 28px;
-  font-weight: 700;
-  color: #333;
-  margin: 0;
-}
+  useEffect(() => {
+    async function fetchUserProfile() {
+      try {
+        const userData = await getProfile(token);
+        setUser(userData);
+      } catch (error) {
+        console.error('Failed to fetch user profile:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchUserProfile();
+  }, [token]);
 
-/* New container for filters without the heading */
-.announcements-filters-container {
-  display: flex;
-  margin-bottom: -20px;
-  margin-top: -26px; /* Added negative margin to pull upward */
-}
+  useEffect(() => {
+    async function fetchAnnouncements() {
+      try {
+        setIsAnnouncementsLoading(true);
+        const announcementsData = await getAnnouncements(token);
+        setAnnouncements(announcementsData);
+      } catch (error) {
+        console.error('Failed to fetch announcements:', error);
+      } finally {
+        setIsAnnouncementsLoading(false);
+      }
+    }
+    fetchAnnouncements();
+  }, [token]);
 
-.announcements-filters {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  margin-top: -5px; /* Added negative margin to pull upward */
-}
+  const handleCardClick = (announcement) => {
+    setSelectedAnnouncement(announcement);
+  };
 
-.filter-btn {
-  background-color: #f1f1f1;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #555;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
+  const closeModal = () => {
+    setSelectedAnnouncement(null);
+  };
 
-.filter-btn:hover {
-  background-color: #e0e0e0;
-}
+  const filterAnnouncements = () => {
+    const now = new Date();
+    const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
 
-.filter-btn.active {
-  background-color: #2d5641;
-  color: white;
-}
+    if (filter === 'recent') {
+      return announcements.filter(
+        (a) => a.date && new Date(a.date) >= thirtyDaysAgo
+      );
+    } else if (filter === 'featured') {
+      return announcements.filter((a) => a.featured === true);
+    }
+    return announcements;
+  };
 
-.announcements-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: -20px; /* Reduce this value to bring cards closer together */
+  const filteredAnnouncements = filterAnnouncements();
 
-}
+  const today = new Date();
+  const formattedDate = today.toLocaleString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
 
-/* Loading state */
-.announcements-page.loading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 500px;
-}
-
-.loader {
-  border: 4px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 4px solid #2d5641;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-  margin-bottom: 20px;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* No announcements message */
-.no-announcements-message {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 50px;
-  color: #777;
-}
-
-.no-announcements-message i {
-  font-size: 48px;
-  margin-bottom: 15px;
-  color: #ccc;
-}
-
-.no-announcements-message p {
-  font-size: 18px;
-}
-
-/* Add space after the filter buttons */
-.announcements-section {
-  margin-top: 15px; /* Add space between filter buttons and content */
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .announcements-header {
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 10px; /* Even less space on mobile */
+  if (isLoading) {
+    return <div className="loading">Loading user data...</div>;
   }
-  
-  .announcements-filters {
-    width: 100%;
-    overflow-x: auto;
-    padding-bottom: 10px;
-  }
-  
-  .announcements-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  }
-  
-  .announcements-filters-container {
-    margin-top: -5px; /* Less negative margin on mobile */
-  }
-}
 
-@media (max-width: 480px) {
-  .announcements-grid {
-    grid-template-columns: 1fr;
+  if (!user) {
+    return <div className="error-message">Unable to load user. Please try again.</div>;
   }
-}
+
+  return (
+    <div className={`layout-container ${isSidebarOpen ? 'sidebar-open' : ''}`}>
+      <Sidebar user={user} isOpen={isSidebarOpen} />
+      <div className="main-content">
+        <div className="dashboard-header">
+          <div className="dashboard-left">
+            <button
+              className="sidebar-toggle-inside"
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            >
+              <FaBars />
+            </button>
+            <h1>Announcements</h1>
+          </div>
+          <span className="current-date">{formattedDate}</span>
+        </div>
+
+        <div className="announcements-filters-container">
+          <div className="announcements-filters">
+            <button
+              className={`filter-btn ${filter === 'all' ? 'active' : ''}`}
+              onClick={() => setFilter('all')}
+            >
+              All
+            </button>
+            <button
+              className={`filter-btn ${filter === 'recent' ? 'active' : ''}`}
+              onClick={() => setFilter('recent')}
+            >
+              Recent
+            </button>
+            <button
+              className={`filter-btn ${filter === 'featured' ? 'active' : ''}`}
+              onClick={() => setFilter('featured')}
+            >
+              Featured
+            </button>
+          </div>
+        </div>
+
+        <div className="announcements-section">
+          {isAnnouncementsLoading ? (
+            <div className="announcements-loading">
+              <div className="loader"></div>
+              <p>Loading announcements...</p>
+            </div>
+          ) : filteredAnnouncements.length > 0 ? (
+            <div className="announcements-grid">
+              {filteredAnnouncements.map((announcement) => (
+                <AnnouncementCard
+                  key={announcement.id}
+                  announcement={announcement}
+                  onClick={handleCardClick}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="no-announcements-message">
+              <i className="fas fa-bullhorn"></i>
+              <p>No announcements found for the selected filter.</p>
+            </div>
+          )}
+        </div>
+
+        {selectedAnnouncement && (
+          <AnnouncementModal
+            announcement={selectedAnnouncement}
+            onClose={closeModal}
+          />
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default AnnouncementsPage;
