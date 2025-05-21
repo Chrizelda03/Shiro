@@ -1,186 +1,86 @@
-.announcement-card {
-  width: 300px !important;
-  height: 380px !important;
-  margin: 15px;
-  background-color: #fff9f3  !important; 
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-  cursor: pointer;
-}
+import React from 'react';
+import '../styles/AnnouncementCard.css';
 
-.announcement-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
-}
+const backendBaseUrl = "http://localhost:8000";
 
-.announcement-card-inner {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
+const AnnouncementCard = ({ announcement, onClick }) => {
+  const imageUrl =
+    announcement.image_url && announcement.image_url.startsWith("http")
+      ? announcement.image_url
+      : announcement.image_url 
+        ? `${backendBaseUrl}${announcement.image_url}`
+        : "/default_announcement.png";
 
-/* Date badge */
-.announcement-date-badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background-color: rgba(255, 255, 255, 0.95);
-  border-radius: 8px;
-  padding: 4px 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-width: 50px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  text-align: center;
-}
+  // Format date for display in card
+  const formatAnnouncementDate = (dateString) => {
+    if (!dateString) return { day: '', month: '' };
+    
+    const date = new Date(dateString);
+    return {
+      day: date.getDate(),
+      month: date.toLocaleDateString('en-US', { month: 'short' }),
+      time: date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })
+    };
+  };
+  
+  const announcementDate = formatAnnouncementDate(announcement.date);
+  
+  // Truncate description to keep cards consistent
+  const truncateText = (text, maxLength) => {
+    if (!text) return '';
+    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+  };
 
-.announcement-month {
-  font-size: 12px;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: #555;
-  margin-bottom: -2px;
-}
+  const description = announcement.content || announcement.description || "";
 
-.announcement-day {
-  font-size: 18px;
-  font-weight: 700;
-  color: #333;
-}
+  return (
+    <div className="announcement-card" onClick={() => onClick(announcement)}>
+      <div className="announcement-card-inner">
+        {/* Date display in top left corner */}
+        {announcement.date && (
+          <div className="announcement-date-badge">
+            <div className="announcement-month">{announcementDate.month}</div>
+            <div className="announcement-day">{announcementDate.day}</div>
+          </div>
+        )}
+        
+        {/* Announcement image with overlay */}
+        <div className="announcement-image-wrapper">
+          <img 
+            src={imageUrl}
+            alt={announcement.title} 
+            className="announcement-image"
+          />
+          <div className="image-overlay"></div>
+        </div>
+        
+        {/* Announcement content */}
+        <div className="announcement-content">
+          <h3 className="announcement-title">{truncateText(announcement.title, 40)}</h3>
+          
+          <div className="announcement-info">
+            {announcement.date && (
+              <div className="announcement-info-item">
+                <i className="fas fa-clock announcement-icon"></i>
+                <span>{announcementDate.time}</span>
+              </div>
+            )}
+            {announcement.location && (
+              <div className="announcement-info-item">
+                <i className="fas fa-map-marker-alt announcement-icon"></i>
+                <span>{truncateText(announcement.location, 25)}</span>
+              </div>
+            )}
+          </div>
+          
+          <button className="view-details-btn">
+            <span>VIEW DETAILS</span>
+            <i className="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-/* Image container */
-.announcement-image-wrapper {
-  position: relative;
-  width: 100%;
-  height: 180px;
-  overflow: hidden;
-  background-color: #ffffff;  /* Added light gray background */
-}
-
-.announcement-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-  background-color: #deffd9;  /* Added slight green tint */
-}
-
-.announcement-card:hover .announcement-image {
-  transform: scale(1.05);
-}
-
-.image-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 60%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%);
-  z-index: 1;
-}
-
-/* Content area */
-.announcement-content {
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  background-color: #fff9f3;
-}
-
-.announcement-title {
-  font-size: 18px;
-  font-weight: 700;
-  margin: 0 0 12px 0;
-  color: #000000 !important; /* Changed to red */
-  line-height: 1.3;
-  height: 48px;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-}
-
-.announcement-info {
-  margin-bottom: 12px;
-}
-
-.announcement-info-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
-  font-size: 14px;
-  color: #555;
-}
-
-.announcement-icon {
-  width: 16px;
-  margin-right: 10px;
-  color: #666;
-  text-align: center;
-}
-
-.announcement-description {
-  font-size: 14px;
-  color: #666;
-  line-height: 1.5;
-  margin-bottom: 16px;
-  flex-grow: 1;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-}
-
-/* Button style with gradient */
-.view-details-btn {
-  background: linear-gradient(135deg, #253f21 0%, #7ecb70 100%);
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 16px;
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 13px;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 5px rgba(37, 63, 33, 0.3);
-}
-
-.view-details-btn:hover {
-  background: linear-gradient(135deg, #2d4f29 0%, #77c366 100%);
-  box-shadow: 0 4px 8px rgba(37, 63, 33, 0.4);
-  transform: translateY(-1px);
-}
-
-.view-details-btn:active {
-  background: linear-gradient(135deg, #1e3319 0%, #315428 100%);
-  box-shadow: 0 1px 3px rgba(37, 63, 33, 0.3);
-  transform: translateY(1px);
-}
-
-.view-details-btn i {
-  transition: transform 0.2s ease;
-}
-
-.view-details-btn:hover i {
-  transform: translateX(3px);
-}
-
-/* For mobile responsiveness */
-@media (max-width: 768px) {
-  .announcement-card {
-    width: 100%;
-    max-width: 320px;
-    margin: 15px auto;
-  }
-}
+export default AnnouncementCard;
