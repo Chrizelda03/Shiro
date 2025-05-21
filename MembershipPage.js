@@ -65,10 +65,10 @@ const MembershipPage = () => {
       progressColor = "#ccc";
     } else if (lower === "verifying") {
       progressPercentage = 50;
-      progressColor = "#28a745";
+      progressColor = "#356e37"; // Changed from green (#28a745) to orange
     } else if (lower === "paid") {
       progressPercentage = 100;
-      progressColor = "#28a745";
+      progressColor = "#28a745"; // Kept green for paid status
     }
     return { progressPercentage, progressColor, displayStatus: status };
   };
