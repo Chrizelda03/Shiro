@@ -150,7 +150,6 @@ const EventsPage = () => {
           <span className="current-date">{formattedDate}</span>
         </div>
 
-        {/* Modified events header - removed Community Events title */}
         <div className="events-filters-container">
           <div className="events-filters">
             <button
