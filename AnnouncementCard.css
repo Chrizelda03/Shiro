@@ -136,9 +136,9 @@
   -webkit-box-orient: vertical;
 }
 
-/* Button style */
+/* Button style with gradient */
 .view-details-btn {
-  background-color: #253f21;
+  background: linear-gradient(135deg, #253f21 0%, #7ecb70 100%);
   color: white;
   border: none;
   border-radius: 6px;
@@ -148,15 +148,24 @@
   font-size: 13px;
   letter-spacing: 0.5px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
   margin-top: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 2px 5px rgba(37, 63, 33, 0.3);
 }
 
 .view-details-btn:hover {
-  background-color: #253f21;
+  background: linear-gradient(135deg, #2d4f29 0%, #77c366 100%);
+  box-shadow: 0 4px 8px rgba(37, 63, 33, 0.4);
+  transform: translateY(-1px);
+}
+
+.view-details-btn:active {
+  background: linear-gradient(135deg, #1e3319 0%, #315428 100%);
+  box-shadow: 0 1px 3px rgba(37, 63, 33, 0.3);
+  transform: translateY(1px);
 }
 
 .view-details-btn i {
