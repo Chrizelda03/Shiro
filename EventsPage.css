@@ -22,25 +22,22 @@
   margin-bottom: -4rem; /* Add space below the header text */
 }
 
-/* Modified filter button container - move left and upwards */
+
 .events-filters-container {
   display: flex;
-  justify-content: flex-start; /* Changed from flex-end to align left */
+  justify-content: flex-start; 
   width: 100%;
-  margin-top: -2rem; /* Increased negative margin to move up more */
-  margin-bottom: -2rem; /* Reduced bottom margin to decrease gap below */
+  margin-top: -2rem; 
+  margin-bottom: -2rem;
 }
 
-/* Adjust container for larger buttons */
 .events-filters {
   display: flex;
-  gap: 15px; /* Increased from 12px for larger buttons */
+  gap: 15px; 
   flex-wrap: wrap;
-  margin-left: 0; /* Ensure no left margin */
-  margin-bottom: 1.5rem; /* Add space below the filters */
+  margin-left: 0; 
+  margin-bottom: 1.5rem; 
 }
-
-/* Enlarged filter buttons */
 .filter-btn {
   background-color: #f1f1f1;
   border: none;
@@ -51,23 +48,35 @@
   font-family: 'Poppins', sans-serif; 
   color: #444; 
   cursor: pointer;
-  transition: all 0.2s ease;
-  letter-spacing: 0.3px; /* Add slight letter spacing */
-  min-width: 120px; /* Ensure minimum width for consistency */
-  text-align: center; /* Center text for better appearance */
+  position: relative;
+  transition: all 0.25s ease;
+  letter-spacing: 0.3px;
+  min-width: 120px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); 
 }
 
 .filter-btn:hover {
   background-color: #e0e0e0;
-  transform: translateY(-1px); /* Subtle lift effect on hover */
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(61, 103, 54, 0.25); /* Enhanced shadow with brand color tint */
 }
-
 .filter-btn.active {
   background-color: #3d6736;
   color: white;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* Slightly larger shadow */
+  transform: translateY(-1px); /* Slight lift for active state */
+  box-shadow: 0 4px 10px rgba(61, 103, 54, 0.4), 0 0 0 2px rgba(255, 255, 255, 0.1); /* Double shadow effect */
 }
-/* Adjusted event grid to reduce gap */
+
+.filter-btn::after {
+  display: none; 
+}
+.filter-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(61, 103, 54, 0.3); /* Medium shadow when clicking */
+  transition: all 0.1s ease; /* Faster transition for clicking */
+}
+
 .events-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -158,17 +167,17 @@
   border-bottom: 1px solid #e0e0e0;
 }
 
-/* Remove section margins to tighten vertical spacing */
+
 .events-section {
   margin-top: 0;
   margin-bottom: 1.5rem;
 }
 
-/* Add specific targeting for the community events section */
+
 .events-section + .events-section {
   margin-top: -3rem; /* Increased negative margin to pull section up */
 }
-/* Remove the bottom border from first section title if needed */
+
 .events-section:first-child .section-title {
   border-bottom: none;
   margin-bottom: 0.25rem; /* Minimal margin */
@@ -179,12 +188,12 @@
   .events-header {
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: -2.5rem; /* Slightly reduced on mobile */
+    margin-bottom: -2.5rem; 
   }
   
   .events-filters-container {
-    margin-top: -0.75rem; /* Slightly less aggressive on mobile */
-    margin-bottom: 0.25rem; /* Even less space on mobile */
+    margin-top: -0.75rem; 
+    margin-bottom: 0.25rem; 
   }
 
   .events-filters {
