@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../styles/EventModal.css';
 
 const EventModal = ({ event, onClose, onParticipate, onNotParticipate }) => {
@@ -42,16 +42,6 @@ const EventModal = ({ event, onClose, onParticipate, onNotParticipate }) => {
 
   // Use the is_participant flag directly from the API
   const isParticipating = event.is_participant === true;
-
-  useEffect(() => {
-    // When modal opens
-    document.body.classList.add('modal-open');
-    
-    // Cleanup when modal closes
-    return () => {
-      document.body.classList.remove('modal-open');
-    };
-  }, []);
 
   return (
     <>
