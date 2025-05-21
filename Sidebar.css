@@ -147,7 +147,7 @@
   background-color: #ffffff; /* Improved visibility */
   border-radius: 10px;
   color:#253f21;
-  width:260px;
+  width:159%;
 }
 
 .sidebar nav ul li a.active {
@@ -245,4 +245,18 @@
 .logout-btn svg {
   font-size: 1.25rem;
   margin-right: 10px !important;
+}
+
+/* Add this at the end of your file */
+body.modal-open .sidebar {
+  filter: blur(5px);
+  opacity: 0.75;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+  pointer-events: none; /* Prevents interaction with blurred sidebar */
+}
+
+body.modal-open .sidebar-toggle {
+  filter: blur(5px);
+  opacity: 0.75;
+  pointer-events: none;
 }
